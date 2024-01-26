@@ -48,6 +48,8 @@ body_json=$(jq -n --arg url "${image_url}" --arg selector "${selector}" '{url: $
 event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 function_url="http://localhost:${container_port}/2015-03-31/functions/function/invocations"
 
+curl -XPOST "${function_url}" --data "${event_json}"
+
 if [ -z "${3}" ]; then
     curl -XPOST "${function_url}" --data "${event_json}"
 else
